@@ -39,7 +39,7 @@ import crypten.communicator as comm
 import numpy as np
 import pandas as pd
 import torch
-from deeplearning.projects.crypten.examples import multiprocess_launcher
+from examples import multiprocess_launcher
 
 
 try:
@@ -536,25 +536,25 @@ class ModelBenchmarks:
 
     def run(self):
         """Runs and stores benchmarks in self.df"""
-        training_runtimes, training_runtimes_enc = self.time_training()
+        # training_runtimes, training_runtimes_enc = self.time_training()
         inference_runtimes, inference_runtimes_enc = self.time_inference()
         accuracies, accuracies_crypten = self.evaluate()
         model_names = [model.name for model in self.models]
 
-        training_times_both = training_runtimes + training_runtimes_enc
+        # training_times_both = training_runtimes + training_runtimes_enc
         inference_times_both = inference_runtimes + inference_runtimes_enc
 
-        half_n_rows = len(training_runtimes)
+        # half_n_rows = len(training_runtimes)
         self.df = pd.DataFrame.from_dict(
             {
                 "model": model_names + model_names,
-                "seconds per epoch": [t.mid for t in training_times_both],
-                "seconds per epoch q1": [t.q1 for t in training_times_both],
-                "seconds per epoch q3": [t.q3 for t in training_times_both],
+                # "seconds per epoch": [t.mid for t in training_times_both],
+                # "seconds per epoch q1": [t.q1 for t in training_times_both],
+                # "seconds per epoch q3": [t.q3 for t in training_times_both],
                 "inference time": [t.mid for t in inference_times_both],
                 "inference time q1": [t.q1 for t in inference_times_both],
                 "inference time q3": [t.q3 for t in inference_times_both],
-                "is plain text": [True] * half_n_rows + [False] * half_n_rows,
+                # "is plain text": [True] * half_n_rows + [False] * half_n_rows,
                 "accuracy": accuracies + accuracies_crypten,
             }
         )
