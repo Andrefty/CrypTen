@@ -108,56 +108,86 @@ class ResNetCrypTen(crypten.nn.Module):
     def forward(self, x):
         return self.model(x)
 
+class VGG19(nn.Module):
+    def __init__(self):
+        super().__init__()
+        
+        self.model = getattr(models, "vgg11")(pretrained=True)
+
+    def forward(self, x):
+        return self.model(x)
+
+
+class VGG19CrypTen(crypten.nn.Module):
+    def __init__(self):
+        super().__init__()
+        model = getattr(models, "vgg11")(pretrained=True)
+        dummy_input = torch.rand([1, 3, 224, 224])
+        self.model = crypten.nn.from_pytorch(model, dummy_input)
+
+    def forward(self, x):
+        return self.model(x)
+
 
 MODELS = [
     Model(
-        name="logistic regression",
-        plain=LogisticRegression(),
-        crypten=LogisticRegressionCrypTen(),
-        data=data.GaussianClusters(),
-        epochs=50,
-        lr=0.1,
-        loss="BCELoss",
-        advanced=False,
-    ),
-    Model(
-        name="feedforward neural network",
-        plain=FeedForward(),
-        crypten=FeedForwardCrypTen(),
-        data=data.GaussianClusters(),
-        epochs=50,
-        lr=0.1,
-        loss="BCELoss",
-        advanced=False,
-    ),
-    Model(
-        name="resnet18",
-        plain=ResNet(n_layers=18),
-        crypten=ResNetCrypTen(n_layers=18),
+        name="vgg11",
+        plain=VGG19(),
+        crypten=VGG19CrypTen(),
         data=data.Images(),
         epochs=2,
         lr=0.1,
         loss="CrossEntropyLoss",
         advanced=True,
     ),
-    Model(
-        name="resnet34",
-        plain=ResNet(n_layers=34),
-        crypten=ResNetCrypTen(n_layers=34),
-        data=data.Images(),
-        epochs=2,
-        lr=0.1,
-        loss="CrossEntropyLoss",
-        advanced=True,
-    ),
-    Model(
-        name="resnet50",
-        plain=ResNet(n_layers=50),
-        crypten=ResNetCrypTen(n_layers=50),
-        data=data.Images(),
-        epochs=2,
-        lr=0.1,
-        loss="CrossEntropyLoss",
-        advanced=True,
-    ),
+    # Model(
+    #     name="logistic regression",
+    #     plain=LogisticRegression(),
+    #     crypten=LogisticRegressionCrypTen(),
+    #     data=data.GaussianClusters(),
+    #     epochs=50,
+    #     lr=0.1,
+    #     loss="BCELoss",
+    #     advanced=False,
+    # ),
+    # Model(
+    #     name="feedforward neural network",
+    #     plain=FeedForward(),
+    #     crypten=FeedForwardCrypTen(),
+    #     data=data.GaussianClusters(),
+    #     epochs=50,
+    #     lr=0.1,
+    #     loss="BCELoss",
+    #     advanced=False,
+    # ),
+    # Model(
+    #     name="resnet18",
+    #     plain=ResNet(n_layers=18),
+    #     crypten=ResNetCrypTen(n_layers=18),
+    #     data=data.Images(),
+    #     epochs=2,
+    #     lr=0.1,
+    #     loss="CrossEntropyLoss",
+    #     advanced=True,
+    # ),
+    # Model(
+    #     name="resnet34",
+    #     plain=ResNet(n_layers=34),
+    #     crypten=ResNetCrypTen(n_layers=34),
+    #     data=data.Images(),
+    #     epochs=2,
+    #     lr=0.1,
+    #     loss="CrossEntropyLoss",
+    #     advanced=True,
+    # ),
+    # Model(
+    #     name="resnet50",
+    #     plain=ResNet(n_layers=50),
+    #     crypten=ResNetCrypTen(n_layers=50),
+    #     data=data.Images(),
+    #     epochs=2,
+    #     lr=0.1,
+    #     loss="CrossEntropyLoss",
+    #     advanced=True,
+    # ),
 ]

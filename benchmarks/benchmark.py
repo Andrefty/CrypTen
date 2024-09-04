@@ -416,6 +416,7 @@ class ModelBenchmarks:
         runtimes_enc = []
 
         for model in self.models:
+            print(len(model.data.x))
             x, y = model.data.x, model.data.y
             x, y = x.to(device=self.device), y.to(device=self.device)
             model_plain = model.plain
