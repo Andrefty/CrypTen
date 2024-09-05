@@ -514,9 +514,9 @@ class ModelBenchmarks:
                 y = model.data.y_onehot.to(self.device)
             x_enc = crypten.cryptensor(x)
             y_enc = crypten.cryptensor(y)
-            _, model_crypten = self.train_crypten(
-                model_crypten, x_enc, y_enc, model.epochs, model.lr, model.loss
-            )
+            # _, model_crypten = self.train_crypten(
+            #     model_crypten, x_enc, y_enc, model.epochs, model.lr, model.loss
+            # )
             x_test_enc = crypten.cryptensor(x_test)
 
             output = model_crypten(x_test_enc).get_plain_text()
