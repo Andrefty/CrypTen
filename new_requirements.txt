@@ -33,7 +33,7 @@ nest_asyncio==1.6.0
 networkx==3.2.1
 numpy==1.19.5
 omegaconf==2.0.6
-onnx==1.10.0
+onnx==1.10.1
 packaging==24.1
 pandas==1.2.2
 paramiko==3.4.1
