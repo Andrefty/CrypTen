@@ -112,7 +112,7 @@ class VGG19(nn.Module):
     def __init__(self):
         super().__init__()
         
-        self.model = getattr(models, "vgg11")(pretrained=True)
+        self.model = getattr(models, "vgg19")(pretrained=True)
 
     def forward(self, x):
         return self.model(x)
@@ -121,7 +121,7 @@ class VGG19(nn.Module):
 class VGG19CrypTen(crypten.nn.Module):
     def __init__(self):
         super().__init__()
-        model = getattr(models, "vgg11")(pretrained=True)
+        model = getattr(models, "vgg19")(pretrained=True)
         dummy_input = torch.rand([1, 3, 224, 224])
         self.model = crypten.nn.from_pytorch(model, dummy_input)
 
@@ -131,7 +131,7 @@ class VGG19CrypTen(crypten.nn.Module):
 
 MODELS = [
     Model(
-        name="vgg11",
+        name="vgg19",
         plain=VGG19(),
         crypten=VGG19CrypTen(),
         data=data.Images(),
