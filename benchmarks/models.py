@@ -86,6 +86,29 @@ class FeedForwardCrypTen(crypten.nn.Module):
         out = (self.linear3(out)).sigmoid()
         return out
 
+class FeedForwardMNIST(torch.nn.Module):
+    def __init__(self, n_features=N_FEATURES):
+        super().__init__()
+        self.linear1 = torch.nn.Linear(28 * 28, 392)
+        self.linear2 = torch.nn.Linear(392, 10)
+
+    def forward(self, x):
+        out = torch.relu(self.linear1(x))
+        out = self.linear2(out)
+        return out
+
+
+class FeedForwardMNISTCrypTen(crypten.nn.Module):
+    def __init__(self, n_features=N_FEATURES):
+        super().__init__()
+        self.linear1 = crypten.nn.Linear(28 * 28, 392)
+        self.linear2 = crypten.nn.Linear(392, 10)
+
+    def forward(self, x):
+        out = (self.linear1(x)).relu()
+        out = self.linear2(out)
+        return out
+
 
 class ResNet(nn.Module):
     def __init__(self, n_layers=18):
@@ -140,6 +163,16 @@ MODELS = [
         loss="CrossEntropyLoss",
         advanced=True,
     ),
+    # Model(
+    #     name="feedforward neural network - MNIST",
+    #     plain=FeedForwardMNIST(),
+    #     crypten=FeedForwardMNISTCrypTen(),
+    #     data=data.GaussianClusters(n_features=784),
+    #     epochs=50,
+    #     lr=0.1,
+    #     loss="BCELoss",
+    #     advanced=False,
+    # ),
     # Model(
     #     name="logistic regression",
     #     plain=LogisticRegression(),

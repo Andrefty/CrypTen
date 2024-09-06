@@ -497,9 +497,9 @@ class ModelBenchmarks:
                 model_plain = model_plain.to(self.device)
             x, y = model.data.x, model.data.y
             x, y = x.to(device=self.device), y.to(device=self.device)
-            _, model_plain = self.train(
-                model_plain, x, y, model.epochs, model.lr, model.loss
-            )
+            # _, model_plain = self.train(
+            #     model_plain, x, y, model.epochs, model.lr, model.loss
+            # )
 
             x_test = model.data.x_test.to(device=self.device)
             y_test = model.data.y_test.to(device=self.device)

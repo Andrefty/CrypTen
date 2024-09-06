@@ -49,8 +49,7 @@ class GaussianClusters:
         x = torch.tensor(x).float()
         y = torch.tensor(y).float().unsqueeze(-1)
 
-        return train_test_split(x, y)
-
+        return train_test_split(x, y, test_size=1)
 
 class Images:
     def __init__(self):
